@@ -11,7 +11,6 @@ struct Color {
     blue: u8,
 }
 
-// I AM NOT DONE
 
 // Your task is to complete this implementation
 // and return an Ok result of inner type Color.
@@ -25,19 +24,47 @@ struct Color {
 // Tuple implementation
 impl TryFrom<(i16, i16, i16)> for Color {
     type Error = String;
-    fn try_from(tuple: (i16, i16, i16)) -> Result<Self, Self::Error> {}
+    fn try_from(tuple: (i16, i16, i16)) -> Result<Self, Self::Error> {
+        let (r,g,b) = tuple;
+        match (r,g,b){
+            (0..=255, 0..=255, 0..=255) => Ok(Color{red:r as u8, green:g as u8, blue:b as u8}),
+            (_,_,_) => Err(String::from("out of range"))
+        }
+    }
 }
 
 // Array implementation
 impl TryFrom<[i16; 3]> for Color {
     type Error = String;
-    fn try_from(arr: [i16; 3]) -> Result<Self, Self::Error> {}
+    fn try_from(arr: [i16; 3]) -> Result<Self, Self::Error> {
+        let r = arr[0];
+        let g = arr[1];
+        let b = arr[2];
+
+        match (r,g,b){
+            (0..=255, 0..=255, 0..=255) => Ok(Color{red:r as u8, green:g as u8, blue:b as u8}),
+            (_,_,_) => Err(String::from("out of range"))
+        }
+    }
 }
 
 // Slice implementation
 impl TryFrom<&[i16]> for Color {
     type Error = String;
-    fn try_from(slice: &[i16]) -> Result<Self, Self::Error> {}
+    fn try_from(slice: &[i16]) -> Result<Self, Self::Error> {
+        if slice.len() != 3{
+            return Err(String::from("Invalid input"))
+        }
+
+        let r = slice[0];
+        let g = slice[1];
+        let b = slice[2];
+
+        match (r,g,b){
+            (0..=255, 0..=255, 0..=255) => Ok(Color{red:r as u8, green:g as u8, blue:b as u8}),
+            (_,_,_) => Err(String::from("out of range"))
+        }
+    }
 }
 
 fn main() {
