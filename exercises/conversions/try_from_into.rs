@@ -37,9 +37,10 @@ impl TryFrom<(i16, i16, i16)> for Color {
 impl TryFrom<[i16; 3]> for Color {
     type Error = String;
     fn try_from(arr: [i16; 3]) -> Result<Self, Self::Error> {
-        let r = arr[0];
-        let g = arr[1];
-        let b = arr[2];
+        // let r = arr[0];
+        // let g = arr[1];
+        // let b = arr[2];
+        let [r,g,b] = arr;
 
         match (r,g,b){
             (0..=255, 0..=255, 0..=255) => Ok(Color{red:r as u8, green:g as u8, blue:b as u8}),
